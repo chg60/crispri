@@ -108,8 +108,8 @@ class MainWindowController:
                             primer_text = primer_text + "\tForward Primer\n5'-{}-3'\n".format(coding_forward_primers[pam])
                             primer_text = primer_text + "\tReverse Primer\n5'-{}-3'\n".format(coding_reverse_primers[pam])
 
-                            tkinter.messagebox.showinfo(title="Done!",
-                            message="The following PAM sites were found. If you chose a save file, primers are saved there. \n{}".format(primer_text))
+                        tkinter.messagebox.showinfo(title="Done!",
+                        message="The following PAM sites were found. If you chose a save file, primers are saved there. \n{}".format(primer_text))
             elif mode == "weak":
                 # iterate through the pams
                 for pam in weak_pams:
@@ -158,8 +158,8 @@ class MainWindowController:
                             primer_text = primer_text + "\tForward Primer\n5'-{}-3'\n".format(coding_forward_primers[pam])
                             primer_text = primer_text + "\tReverse Primer\n5'-{}-3'\n".format(coding_reverse_primers[pam])
 
-                            tkinter.messagebox.showinfo(title="Done!",
-                            message="The following PAM sites were found. If you chose a save file, primers are saved there. \n{}".format(primer_text))
+                        tkinter.messagebox.showinfo(title="Done!",
+                        message="The following PAM sites were found. If you chose a save file, primers are saved there. \n{}".format(primer_text))
             return
 
         elif crispr == 1:

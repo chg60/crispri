@@ -11,7 +11,7 @@ class RootLayoutFrame(Frame):
         self.root = root
         self.controller = controller
 
-        self.output_file = None
+        self.output_file = StringVar()
 
         self.name_frame = Frame(master=self)
         self.seq_name_label = Label(master=self.name_frame, text="Enter a name for your sequence:")
@@ -56,19 +56,14 @@ class RootLayoutFrame(Frame):
         self.button_frame.pack(side=TOP, fill=X, expand=True, anchor=NW)
 
     def choose_save_file(self):
-        result = tkinter.filedialog.asksaveasfilename(defaultextension=".txt", initialdir="/Users/")
-        if result is None:
-            self.output_file.set(None)
-        else:
-            self.output_file.set(result)
+        self.output_file.set(tkinter.filedialog.asksaveasfilename(defaultextension=".txt", initialdir="/Users/"))
         return
 
     def quit(self):
         self.root.destroy()
 
     def run(self):
-        print(self.seq_name_entry.get(), self.output_file, self.use_for_crispr_var.get())
-        if self.output_file is None:
+        if self.output_file.get() is None or self.output_file.get() == "":
             response = tkinter.messagebox.askyesnocancel(title="No Save File Chosen",
             message="No save file has been selected. Click 'Cancel' or 'No' to go back and choose one. Click 'Yes' to proceed anyway.")
             if response is None or response == False:
@@ -77,4 +72,4 @@ class RootLayoutFrame(Frame):
             else:
                 self.controller.get_primers(name=self.seq_name_entry.get(), sequence=self.sequence_entry.get("1.0","end-1c"), save_file=None, mode="strong", crispr=self.use_for_crispr_var.get())
         else:
-            self.controller.get_primers(name=self.seq_name_entry.get(), sequence=self.sequence_entry.get("1.0","end-1c"), save_file=self.output_file, mode="strong", crispr=self.use_for_crispr_var.get())
+            self.controller.get_primers(name=self.seq_name_entry.get(), sequence=self.sequence_entry.get("1.0","end-1c"), save_file=self.output_file.get(), mode="strong", crispr=self.use_for_crispr_var.get())

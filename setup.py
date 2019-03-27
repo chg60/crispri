@@ -16,8 +16,8 @@ OPTIONS = {
 	'CFBundleName': APP_NAME,
 	'CFBundleDisplayName': APP_NAME,
 	'CFBundleGetInfoString': "A lightweight tool to aid in the design of primers for CRISPRi sgRNAs.",
-	'CFBundleVersion': "0.1.4",
-	'CFBundleShortVersionString': "0.1.4",
+	'CFBundleVersion': "0.1.5",
+	'CFBundleShortVersionString': "0.1.5",
 	'NSHumanReadableCopyright': u"Copyright \xa9 2019, Christian Gauthier, All Rights Reserved."
 	}
 }
