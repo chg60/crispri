@@ -1,7 +1,10 @@
 import tkinter as tk
 import tkinter.messagebox
 import requests
+import os
+import json
 from ui.windows.MainWindow import MainWindow
+
 
 class MainWindowController:
     def __init__(self):
@@ -328,18 +331,37 @@ class MainWindowController:
                         message="The following PAM sites were found. If you chose a save file, primers are saved there. \n{}".format(primer_text))
             return
 
+    def open_documentation(self):
+        os.system("open -a Preview userguide.pdf")
+
+    def report_bug(self):
+        with open("contact.json", "r") as filehandle:
+            contact = json.load(filehandle)
+        message="Please email {} at {} with any bugs. Please write '{}' in the subject line. In the body of your email, please include a {}, the {}, the {}, {}, {} and {} number {}.".format(contact['name'], contact['email'], contact['subject'], contact['include'][0], contact['include'][1], contact['include'][2], contact['include'][3], contact['include'][4], contact['include'][5], contact['version'])
+        tkinter.messagebox.askokcancel(title="Bug Reporting", message=message)
+
     def check_for_updates(self):
         # local version
-        f = open("data/version.txt", "r")
+        f = open("version.txt", "r")
         local_version = f.readline()
         f.close()
 
         # remote version
-
+        response = requests.get("https://raw.github.com/chg60/crispri/master/data/version.txt")
+        remote_version = response.text.rstrip("\n")
+        if remote_version > local_version:
+            update = tkinter.messagebox.askyesnocancel(title="Updates Available",
+            message="Updates are available. Would you like to download them now? This should take about 10 seconds and would require you to close the application before updates are applied.")
+        else:
+            tkinter.messagebox.showinfo(title="No Updates Available",
+            message="There are no updates available at this time.")
+            update = False
+        if update == True:
+            os.system("curl -O https://www.github.com/chg60/crispri/dist/Mycobacterial\ CRISPRi\ Primer\ Designer.app")
 
     def quit(self):
         title = "Quitting Program..."
-        message = "Are you sure you want to quit CRISPRi Primer Finder?"
+        message = "Are you sure you want to quit Mycobacterial CRISPRi Primer Designer?"
 
         result = tkinter.messagebox.askyesnocancel(title=title, message=message, default=tkinter.messagebox.CANCEL)
 

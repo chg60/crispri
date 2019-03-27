@@ -56,18 +56,23 @@ class RootLayoutFrame(Frame):
         self.button_frame.pack(side=TOP, fill=X, expand=True, anchor=NW)
 
     def choose_save_file(self):
-        result = tkinter.filedialog.asksaveasfilename(defaultextension=".txt", initialdir=self.controller.preferences['default_dir'])
-        self.output_file = result
+        result = tkinter.filedialog.asksaveasfilename(defaultextension=".txt", initialdir="/Users/")
+        if result is None:
+            self.output_file.set(None)
+        else:
+            self.output_file.set(result)
         return
 
     def quit(self):
         self.root.destroy()
 
     def run(self):
+        print(self.seq_name_entry.get(), self.output_file, self.use_for_crispr_var.get())
         if self.output_file is None:
             response = tkinter.messagebox.askyesnocancel(title="No Save File Chosen",
             message="No save file has been selected. Click 'Cancel' or 'No' to go back and choose one. Click 'Yes' to proceed anyway.")
             if response is None or response == False:
+                self
                 return
             else:
                 self.controller.get_primers(name=self.seq_name_entry.get(), sequence=self.sequence_entry.get("1.0","end-1c"), save_file=None, mode="strong", crispr=self.use_for_crispr_var.get())

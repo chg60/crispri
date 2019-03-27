@@ -17,9 +17,9 @@ class MainWindow:
 
         # create and populate help menu
         self.help_menu = Menu(master=self.menu_bar, tearoff=0)
-        self.help_menu.add_command(label="Documentation", command=None)
-        self.help_menu.add_command(label="Report a Bug", command=None)
-        self.help_menu.add_command(label="Version Information", command=None)
+        self.help_menu.add_command(label="Documentation", command=self.controller.open_documentation)
+        self.help_menu.add_command(label="Report a Bug", command=self.controller.report_bug)
+        self.help_menu.add_command(label="Check for Updates", command=self.controller.check_for_updates)
         self.menu_bar.add_cascade(menu=self.help_menu, label="Help")
 
         # setup layout

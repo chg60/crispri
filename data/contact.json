@@ -7,7 +7,7 @@
         "sequence name",
         "coding sequence",
         "whether the CRISPR box is checked",
-        "whether save file was selected"
+        "whether save file was selected",
         "version"
     ],
     "version": "0.1.4"
