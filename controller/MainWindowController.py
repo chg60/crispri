@@ -351,13 +351,17 @@ class MainWindowController:
         remote_version = response.text.rstrip("\n")
         if remote_version > local_version:
             update = tkinter.messagebox.askyesnocancel(title="Updates Available",
-            message="Updates are available. Would you like to download them now? This should take about 10 seconds and would require you to close the application before updates are applied.")
+            message="Updates are available. Would you like to download them now? This should take a few seconds, and the new application will be found in your Downloads folder.")
         else:
             tkinter.messagebox.showinfo(title="No Updates Available",
             message="There are no updates available at this time.")
             update = False
         if update == True:
-            os.system("curl -O https://www.github.com/chg60/crispri/dist/Mycobacterial\ CRISPRi\ Primer\ Designer.app")
+            os.system("cd ~/Downloads/; curl -LO https://raw.github.com/chg60/crispri/master/MacOSX-version{}.zip; unzip MacOSX-version{}.zip; rm MacOSX-version{}.zip".format(remote_version, remote_version, remote_version))
+            # os.system("unzip MacOSX-version{}.zip".format(remote_version))
+            # os.system("rm MacOSX-version{}.zip".format(remote_version))
+            tkinter.messagebox.showinfo(title="Program Restart Required",
+            message="The updated application can be found in your Downloads.  You'll need to manually drag it into your Applications folder to overwrite this version.")
 
     def quit(self):
         title = "Quitting Program..."
